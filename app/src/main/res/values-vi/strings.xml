@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Danh sách công việc</string>
+    <string name="add_task">Thêm công việc</string>
+    <string name="settings">Cài đặt</string>
+    <string name="new_task_title">Thêm công việc mới</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+    <string name="pick_time">Chọn thời gian</string>
+    <string name="lang_title">Chọn ngôn ngữ</string>
+    <string name="done">Xong</string>
+    <string name="back">Quay lại</string>
+    <string name="dark_mode">Giao diện</string>
+    <string name="light_theme">Sáng</string>
+    <string name="dark_theme">Tối</string>
+    <string name="theme_title">Chọn giao diện</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="time_format">Định dạng giờ</string>
+    <string name="time_12h">12 giờ (AM/PM)</string>
+    <string name="time_24h">24 giờ</string>
+    <string name="time_hint_24h">HH:mm (vd: 23:59)</string>
+    <string name="time_hint_12h">HH:mm AM/PM (vd: 11:59 PM)</string>
+    <string name="invalid_time">Định dạng giờ không hợp lệ. Vui lòng thử lại.</string>
+</resources>
