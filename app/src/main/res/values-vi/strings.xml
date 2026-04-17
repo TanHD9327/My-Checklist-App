@@ -6,6 +6,12 @@
     <string name="save">Lưu</string>
     <string name="cancel">Hủy</string>
     <string name="pick_time">Chọn thời gian</string>
+    <string name="task_hint">Việc cần làm...</string>
+    <string name="date_label">Ngày:</string>
+    <string name="pick_date_btn">Chọn ngày</string>
+    <string name="time_label">Thời gian:</string>
+    <string name="hour_hint">Giờ</string>
+    <string name="minute_hint">Phút</string>
     <string name="lang_title">Chọn ngôn ngữ</string>
     <string name="done">Xong</string>
     <string name="back">Quay lại</string>

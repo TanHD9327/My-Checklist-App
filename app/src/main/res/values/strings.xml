@@ -6,6 +6,12 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="pick_time">Pick Time (Optional)</string>
+    <string name="task_hint">What needs to be done?</string>
+    <string name="date_label">Date:</string>
+    <string name="pick_date_btn">Pick Date</string>
+    <string name="time_label">Time:</string>
+    <string name="hour_hint">HH</string>
+    <string name="minute_hint">mm</string>
     <string name="lang_title">Select Language</string>
     <string name="done">Done</string>
     <string name="back">Back</string>

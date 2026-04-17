@@ -9,26 +9,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints=""
-        android:hint="Việc cần làm..." />
+        android:hint="@string/task_hint" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Ngày:" />
+        android:text="@string/date_label" />
 
     <Button
         android:id="@+id/btnPickDate"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chọn ngày" />
+        android:text="@string/pick_date_btn" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Thời gian:" />
+        android:text="@string/time_label" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:autofillHints=""
-            android:hint="Giờ"
+            android:hint="@string/hour_hint"
             android:inputType="number"
             android:maxLength="2"
             android:textAlignment="center" />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:autofillHints=""
-            android:hint="Phút"
+            android:hint="@string/minute_hint"
             android:inputType="number"
             android:maxLength="2"
             android:textAlignment="center" />
