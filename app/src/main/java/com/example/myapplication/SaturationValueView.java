@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -65,7 +66,7 @@ public class SaturationValueView extends View {
         // 1. Horizontal: White to Hue color
         // 2. Vertical: Transparent to Black
         
-        int mainColor = Color.HSVToColor(new float[]{hue, 1f, 1f});
+        @SuppressLint("DrawAllocation") int mainColor = Color.HSVToColor(new float[]{hue, 1f, 1f});
         
         Shader satShader = new LinearGradient(0, 0, width, 0, Color.WHITE, mainColor, Shader.TileMode.CLAMP);
         paint.setShader(satShader);

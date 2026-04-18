@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "checklist.db";
@@ -75,17 +78,98 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteOldFinishedTasks(long sevenDaysAgoMillis) {
+    public void updateTask(int id, String content, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
-        // Xóa các task đã xong mà có finish_date (dạng timestamp string) nhỏ hơn 7 ngày trước
-        db.delete("tasks", "is_done = 1 AND finish_date < ?", new String[]{String.valueOf(sevenDaysAgoMillis)});
+        ContentValues values = new ContentValues();
+        values.put("content", content);
+        values.put("date", date);
+        db.update("tasks", values, "id = ?", new String[]{String.valueOf(id)});
         db.close();
     }
 
-    // --- HÀM XÓA: Xóa bằng ID (Sửa lỗi bạn đang gặp) ---
+    public void deleteOldFinishedTasks(long sevenDaysAgoMillis) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Chuyển finish_date sang kiểu số để so sánh chính xác hơn
+        db.delete("tasks", "is_done = 1 AND CAST(finish_date AS INTEGER) < ?", new String[]{String.valueOf(sevenDaysAgoMillis)});
+        db.close();
+    }
+
+    // --- HÀM XÓA: Xóa bằng ID ---
     public void deleteTask(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tasks", "id = ?", new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public void deleteTasks(List<Integer> ids) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for (Integer id : ids) {
+                db.delete("tasks", "id = ?", new String[]{String.valueOf(id)});
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
+    public void updateTasksStatus(List<Integer> ids, int isDone, String finishDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            values.put("is_done", isDone);
+            values.put("finish_date", finishDate);
+            for (Integer id : ids) {
+                db.update("tasks", values, "id = ?", new String[]{String.valueOf(id)});
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
+    public JSONArray exportTasksToJSON() {
+        JSONArray array = new JSONArray();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT content, date, is_done, finish_date FROM tasks", null);
+        if (cursor.moveToFirst()) {
+            do {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("content", cursor.getString(0));
+                    obj.put("date", cursor.getString(1));
+                    obj.put("is_done", cursor.getInt(2));
+                    obj.put("finish_date", cursor.getString(3));
+                    array.put(obj);
+                } catch (Exception ignored) {}
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return array;
+    }
+
+    public void importTasksFromJSON(JSONArray array) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+                ContentValues values = new ContentValues();
+                values.put("content", obj.getString("content"));
+                values.put("date", obj.optString("date", ""));
+                values.put("is_done", obj.optInt("is_done", 0));
+                values.put("finish_date", obj.optString("finish_date", ""));
+                db.insert("tasks", null, values);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception ignored) {
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
     }
 }

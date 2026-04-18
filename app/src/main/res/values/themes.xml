@@ -2,6 +2,7 @@
     <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
     </style>
 
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
